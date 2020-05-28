@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">WhatToCook</string>
+    <string name="login_button_text">Login</string>
+    <string name="register_button_text">Register</string>
+    <string name="email_edittext_text">Email</string>
+    <string name="password_edittext_text">Password</string>
+    <string name="change_password_text">Forgot your password? Tap here.</string>
+    <string name="logo_description">Official logo of the app</string>
+    <string name="bg_img_description">Background image for the app</string>
+</resources>
