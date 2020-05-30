@@ -17,6 +17,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -40,11 +41,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
     android.defaultConfig.vectorDrawables.useSupportLibrary = true
 
     // Add these lines in `dependencies`
-   implementation 'com.amplifyframework:core:1.0.0'
-   implementation 'com.amplifyframework:aws-datastore:1.0.0'
-   implementation 'com.amplifyframework:aws-api:1.0.0'
+    implementation 'com.amplifyframework:core:1.0.0'
+    implementation 'com.amplifyframework:aws-datastore:1.0.0'
+    implementation 'com.amplifyframework:aws-api:1.0.0'
+    implementation 'com.amplifyframework:aws-auth-cognito:1.0.0'
 }

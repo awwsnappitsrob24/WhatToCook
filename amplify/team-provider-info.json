@@ -10,6 +10,11 @@
             "StackName": "amplify-whattocook-dev-171541",
             "StackId": "arn:aws:cloudformation:us-west-2:212461633925:stack/amplify-whattocook-dev-171541/8cf45370-a141-11ea-898b-0acdd0d69e28",
             "AmplifyAppId": "d16c6b1x7slvkl"
+        },
+        "categories": {
+            "auth": {
+                "whattocook28c286db": {}
+            }
         }
     }
 }
