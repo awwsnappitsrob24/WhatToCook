@@ -56,13 +56,12 @@ class RegisterActivity : AppCompatActivity() {
         // Call Firebase sign up method on button press
         registerButton.setOnClickListener() {
             // Turn on progress bar before and during operation
-            //showProgressBar(progressBar)
 
             // Sign up using Firebase
             signUpUser(newUser)
 
             // Turn off progress bar after operation
-            //hideProgressBar(progressBar)
+
         }
     }
 
@@ -110,24 +109,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun showProgressBar(bar: ProgressBar) {
-        //runOnUiThread {
-        //    run() {
-                bar.visibility = View.VISIBLE
-        //    }
-        //}
-    }
-
-    private fun hideProgressBar(bar: ProgressBar) {
-        //runOnUiThread {
-        //    run() {
-                bar.visibility = View.INVISIBLE
-        //    }
-        //}
-    }
-
-
 
     private fun disableButton(button: Button) {
         button.isEnabled = false
