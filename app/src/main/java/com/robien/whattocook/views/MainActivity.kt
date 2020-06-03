@@ -53,4 +53,5 @@ class MainActivity : AppCompatActivity() {
         // start your next activity
         startActivity(regIntent)
     }
+
 }

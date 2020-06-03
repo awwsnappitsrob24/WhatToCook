@@ -2,36 +2,33 @@ package com.robien.whattocook.views
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.widget.*
-import com.amplifyframework.AmplifyException
-import com.amplifyframework.auth.AuthUserAttributeKey
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin
-import com.amplifyframework.auth.options.AuthSignUpOptions
-import com.amplifyframework.auth.result.AuthSignUpResult
-import com.amplifyframework.core.Amplify
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.robien.whattocook.R
 import com.robien.whattocook.models.User
 
+
 class RegisterActivity : AppCompatActivity() {
+
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        // Initialize and add Amplify Auth plugin
-        Amplify.addPlugin(AWSCognitoAuthPlugin())
-        try {
-            Amplify.configure(applicationContext)
-            Log.i("MyAmplifyApp", "Initialized Amplify")
-        } catch (error: AmplifyException) {
-            Log.e("MyAmplifyApp", "Could not initialize Amplify", error)
-        }
+        // Hide the app bar
+        if (supportActionBar != null)
+            supportActionBar?.hide()
 
+        // Initialize Firebase Auth
+        auth = Firebase.auth
 
         // Get references to widgets
         val emailEditText = findViewById<EditText>(R.id.emailEditText)
@@ -39,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
         var confirmPwEditText = findViewById<EditText>(R.id.confirmPwText)
         val termsAndCondCheckBox = findViewById<CheckBox>(R.id.tac_checkBox)
         val registerButton = findViewById<Button>(R.id.signup_button)
-        val progressBar = findViewById<ProgressBar>(R.id.progress_circular)
+        val progressBar = findViewById<ProgressBar>(R.id.regProgressBar)
 
         // Change text color of checkbox text and listen to changes
         // If checked, enable button, if not, disable it
@@ -52,63 +49,84 @@ class RegisterActivity : AppCompatActivity() {
         }
 
         // Create user object to pass to sign up function
-        val email = emailEditText.text
-        val password = pwEditText.text
+        val email = emailEditText?.text
+        val password = pwEditText?.text
         val newUser = User(email, password)
 
-        // Call Amplify sign up method on button press
+        // Call Firebase sign up method on button press
         registerButton.setOnClickListener() {
-            // Show progress bar while signing up user
-            progressBar.visibility = View.VISIBLE
+            // Turn on progress bar before and during operation
+            //showProgressBar(progressBar)
 
-            // Sign up using Amplify
+            // Sign up using Firebase
             signUpUser(newUser)
 
             // Turn off progress bar after operation
-            progressBar.visibility = View.GONE
+            //hideProgressBar(progressBar)
         }
     }
 
     private fun signUpUser(user: User) {
         Log.d("user_object_email", user.email.toString())
         Log.d("user_object_pw", user.password.toString())
+
         // If successful, show toast with successful message then go to home page
-        // If unsuccessful, show toast with error message.
-        // This is all performed in the background thread
-        Amplify.Auth.signUp(
-            user.email.toString(),
-            user.password.toString(),
-            AuthSignUpOptions.builder().userAttribute(AuthUserAttributeKey.email(), user.email.toString()).build(),
-            { result -> showSuccessfulRegToast(result.toString())
-                goToHomePage()},
-            { error -> showUnsuccessfulRegToast(error.toString()) }
-        )
+        // If unsuccessful, show toast with error message
+        // Sign up user using Firebase
+        auth.createUserWithEmailAndPassword(user.email.toString(), user.password.toString())
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d("Sign-up success", "createUserWithEmail:success")
+                    showSuccessfulRegToast()
+                    goToHomePage()
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.d("Sign-up failed", "createUserWithEmail:failure", task.exception)
+                    showUnsuccessfulRegToast()
+                }
+            }
     }
 
-    private fun showSuccessfulRegToast(result: String) {
+    private fun showSuccessfulRegToast() {
         runOnUiThread {
             run() {
                 //val successfulToast = Toast.makeText(applicationContext,"Sign up successful!",Toast.LENGTH_LONG)
-                val successfulToast = Toast.makeText(applicationContext,result,Toast.LENGTH_LONG)
+                val successfulToast = Toast.makeText(applicationContext,"Sign up successful!",Toast.LENGTH_LONG)
                 successfulToast.setGravity(Gravity.BOTTOM, 0,0)
                 successfulToast.show()
-
             }
         }
     }
 
-    private fun showUnsuccessfulRegToast(error: String) {
+    private fun showUnsuccessfulRegToast() {
         runOnUiThread {
             run() {
-                //val unsuccessfulToast = Toast.makeText(applicationContext,"Sign up failed." +
-                   // "Make sure that your password is greater than or equal to 6 characters",Toast.LENGTH_LONG)
-                val unsuccessfulToast = Toast.makeText(applicationContext,error,Toast.LENGTH_LONG)
+                val unsuccessfulToast = Toast.makeText(applicationContext,"Sign up failed." +
+                        "Make sure that your email is formatted correctly and/or your password " +
+                        "has at least 6 characters.",Toast.LENGTH_LONG)
                 unsuccessfulToast.setGravity(Gravity.BOTTOM, 0,0)
                 unsuccessfulToast.show()
-                Log.d("error_message", error)
             }
         }
     }
+
+    private fun showProgressBar(bar: ProgressBar) {
+        //runOnUiThread {
+        //    run() {
+                bar.visibility = View.VISIBLE
+        //    }
+        //}
+    }
+
+    private fun hideProgressBar(bar: ProgressBar) {
+        //runOnUiThread {
+        //    run() {
+                bar.visibility = View.INVISIBLE
+        //    }
+        //}
+    }
+
 
 
     private fun disableButton(button: Button) {
@@ -131,4 +149,5 @@ class RegisterActivity : AppCompatActivity() {
         // start your next activity
         startActivity(homeIntent)
     }
+
 }
