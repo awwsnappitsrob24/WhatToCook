@@ -57,20 +57,49 @@ class RegisterActivity : AppCompatActivity() {
         registerButton.setOnClickListener() {
             // Turn on progress bar before and during operation
 
-            // Sign up using Firebase
-            signUpUser(newUser)
+            // Sign up using Firebase only fi form is properly filled out
+            if(validateForm(emailEditText, pwEditText, confirmPwEditText))
+                signUpUser(newUser, confirmPwEditText?.text.toString())
 
             // Turn off progress bar after operation
 
         }
     }
 
-    private fun signUpUser(user: User) {
-        Log.d("user_object_email", user.email.toString())
-        Log.d("user_object_pw", user.password.toString())
+    private fun validateForm(emailET: EditText, pwET: EditText, confirmedPwET: EditText): Boolean {
+        when {
+            emailET.text.isEmpty() -> {
+                emailET.error = "Email field cannot be left blank."
+                emailET.isFocusable = true
+                return false
+            }
+            pwET.text.isEmpty() -> {
+                pwET.error = "Password field cannot be left blank."
+                pwET.isFocusable = true
+                return false
+            }
+            confirmedPwET.text.isEmpty() -> {
+                confirmedPwET.error = "Confirm password field cannot be left blank."
+                confirmedPwET.isFocusable = true
+                return false
+            }
+            pwET.text.length < 6 -> {
+                pwET.error = "Password must be at least 6 characters."
+                pwET.isFocusable = true
+                return false
+            }
+            pwET.text.toString() != confirmedPwET.text.toString() -> {
+                confirmedPwET.error = "Passwords did not match."
+                pwET.isFocusable = true
+                return false
+            }
+            else -> {
+                return true
+            }
+        }
+    }
 
-        // If successful, show toast with successful message then go to home page
-        // If unsuccessful, show toast with error message
+    private fun signUpUser(user: User, confirmedPw: String) {
         // Sign up user using Firebase
         auth.createUserWithEmailAndPassword(user.email.toString(), user.password.toString())
             .addOnCompleteListener(this) { task ->
@@ -80,8 +109,6 @@ class RegisterActivity : AppCompatActivity() {
                     showSuccessfulRegToast()
                     goToHomePage()
                 } else {
-                    // If sign in fails, display a message to the user.
-                    Log.d("Sign-up failed", "createUserWithEmail:failure", task.exception)
                     showUnsuccessfulRegToast()
                 }
             }
@@ -101,11 +128,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun showUnsuccessfulRegToast() {
         runOnUiThread {
             run() {
-                val unsuccessfulToast = Toast.makeText(applicationContext,"Sign up failed." +
-                        "Make sure that your email is formatted correctly and/or your password " +
-                        "has at least 6 characters.",Toast.LENGTH_LONG)
-                unsuccessfulToast.setGravity(Gravity.BOTTOM, 0,0)
-                unsuccessfulToast.show()
+                //val successfulToast = Toast.makeText(applicationContext,"Sign up successful!",Toast.LENGTH_LONG)
+                val successfulToast = Toast.makeText(applicationContext,"Sign up failed. " +
+                        "Email has already been signed up. Please choose another email.",Toast.LENGTH_LONG)
+                successfulToast.setGravity(Gravity.BOTTOM, 0,0)
+                successfulToast.show()
             }
         }
     }
