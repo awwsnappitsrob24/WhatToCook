@@ -66,6 +66,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Validate form before sign up process
+    // Return true if form is filled out properly, false if not
     private fun validateForm(emailET: EditText, pwET: EditText, confirmedPwET: EditText): Boolean {
         when {
             emailET.text.isEmpty() -> {
@@ -99,6 +101,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Sign up method using Firebase auth
     private fun signUpUser(user: User, confirmedPw: String) {
         // Sign up user using Firebase
         auth.createUserWithEmailAndPassword(user.email.toString(), user.password.toString())
@@ -114,6 +117,7 @@ class RegisterActivity : AppCompatActivity() {
             }
     }
 
+    // Show toast if sign up was successful
     private fun showSuccessfulRegToast() {
         runOnUiThread {
             run() {
@@ -125,6 +129,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // SHow toast if sign up was unsuccessful
     private fun showUnsuccessfulRegToast() {
         runOnUiThread {
             run() {
@@ -137,6 +142,7 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
+    // Disable button method to invoke if user has not agreed to terms and conditions
     private fun disableButton(button: Button) {
         button.isEnabled = false
         button.isClickable = false
@@ -144,6 +150,7 @@ class RegisterActivity : AppCompatActivity() {
         button.setBackgroundColor(Color.GRAY)
     }
 
+    // Enable button method to invoke if user has agreed to terms and conditions
     private fun enableButton(button: Button) {
         button.isEnabled = true
         button.isClickable = true
@@ -151,6 +158,7 @@ class RegisterActivity : AppCompatActivity() {
         button.setBackgroundColor(Color.WHITE)
     }
 
+    // Intent to go to home page activity
     private fun goToHomePage() {
         // Go to Register Page view
         val homeIntent = Intent(this, HomepageActivity::class.java)
