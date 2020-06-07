@@ -59,7 +59,7 @@ class RegisterActivity : AppCompatActivity() {
 
             // Sign up using Firebase only fi form is properly filled out
             if(validateForm(emailEditText, pwEditText, confirmPwEditText))
-                signUpUser(newUser, confirmPwEditText?.text.toString())
+                signUpUser(newUser)
 
             // Turn off progress bar after operation
 
@@ -102,7 +102,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     // Sign up method using Firebase auth
-    private fun signUpUser(user: User, confirmedPw: String) {
+    private fun signUpUser(user: User) {
         // Sign up user using Firebase
         auth.createUserWithEmailAndPassword(user.email.toString(), user.password.toString())
             .addOnCompleteListener(this) { task ->
