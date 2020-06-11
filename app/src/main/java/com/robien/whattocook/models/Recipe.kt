@@ -1,3 +1,3 @@
 package com.robien.whattocook.models
 
-data class Recipe(val title : String, val imageLink : String)
+data class Recipe(val title : String, val image : String)

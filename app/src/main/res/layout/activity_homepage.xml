@@ -13,7 +13,7 @@
         android:layout_marginTop="1dp"
         android:layout_marginBottom="1dp"
         android:queryHint="@string/search_hint"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintBottom_toTopOf="@+id/recipe_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

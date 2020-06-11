@@ -1,12 +1,15 @@
 package com.robien.whattocook.views
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.robien.whattocook.R
 import com.robien.whattocook.models.Recipe
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.row_layout.view.*
+
 
 class RecipeAdapter (private val recipeList : ArrayList<Recipe>, private val listener :
 
@@ -41,7 +44,14 @@ class RecipeAdapter (private val recipeList : ArrayList<Recipe>, private val lis
             //Listen for user input events//
             itemView.setOnClickListener{ listener.onItemClick(recipe) }
             itemView.title.text = recipe.title
-            itemView.image_link.text = recipe.imageLink
+
+            // download image from URL
+            Picasso.get()
+                .load(recipe.image)
+                .resize(500,500)
+                .centerCrop()
+                .transform(CircleTransform(50,0))
+                .into(itemView.recipeImage)
         }
 
     }

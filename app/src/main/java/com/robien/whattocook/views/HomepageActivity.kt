@@ -7,6 +7,7 @@ import android.widget.SearchView
 import android.widget.TextView
 import io.reactivex.disposables.CompositeDisposable
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
