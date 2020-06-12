@@ -43,12 +43,12 @@ class RecipeAdapter (private val recipeList : ArrayList<Recipe>, private val lis
 
             //Listen for user input events//
             itemView.setOnClickListener{ listener.onItemClick(recipe) }
-            itemView.title.text = recipe.title
+            itemView.title.text = recipe.title.capitalize()
 
             // download image from URL
             Picasso.get()
                 .load(recipe.image)
-                .resize(500,500)
+                .resize(300,300)
                 .centerCrop()
                 .transform(CircleTransform(50,0))
                 .into(itemView.recipeImage)
