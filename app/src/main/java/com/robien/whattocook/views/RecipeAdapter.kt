@@ -52,6 +52,17 @@ class RecipeAdapter (private val recipeList : ArrayList<Recipe>, private val lis
                 .centerCrop()
                 .transform(CircleTransform(50,0))
                 .into(itemView.recipeImage)
+
+            // Get references to the two buttons
+            itemView.addRecipeButton.setOnClickListener {
+                // add recipe to wish list
+                Log.d("clicked add", "Add")
+            }
+
+            itemView.viewRecipeButton.setOnClickListener {
+                // view recipe
+                Log.d("clicked view", "View")
+            }
         }
 
     }
