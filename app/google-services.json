@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "975995096349",
+    "firebase_url": "https://whattocook-9f8f5.firebaseio.com",
+    "project_id": "whattocook-9f8f5",
+    "storage_bucket": "whattocook-9f8f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975995096349:android:5583719e7f0a67459265f4",
+        "android_client_info": {
+          "package_name": "com.robien.whattocook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975995096349-fbig27m687skevvh2tcjtum8js99roo3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmnJhtbZ0qCgUphnk3e0ZMUOLeVJ82bEU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975995096349-fbig27m687skevvh2tcjtum8js99roo3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

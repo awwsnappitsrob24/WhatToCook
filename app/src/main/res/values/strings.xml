@@ -10,6 +10,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="terms_and_conditions">I agree to the Terms and Conditions</string>
     <string name="register_button">Register</string>
-    <string name="search_hint">Enter ingredients here</string>
+    <string name="search_hint">Enter ingredients here (e.g apples, sugar, flour)</string>
     <string name="empty_recipe_search">No recipes found! Type your ingredients in the search bar above and start looking for recipes!</string>
 </resources>

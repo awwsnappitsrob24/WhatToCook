@@ -28,7 +28,7 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
     private var recipeAdapter: RecipeAdapter? = null
     private var recipeCompositeDisposable: CompositeDisposable? = null
     private var recipeArrayList: ArrayList<Recipe>? = null
-    private val BASE_URL = "https://api.spoonacular.com/"
+    private val BASE_URL = "https://api.spoonacular.com/recipes/"
     private var ingredientsQuery: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,7 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
                 ingredientsQuery = query
                 recipeCompositeDisposable = CompositeDisposable()
                 initRecyclerView()
-                loadRecipes()
+                loadRecipes(ingredientsQuery)
                 return true
             }
 
@@ -66,7 +66,9 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
     }
 
     //Implement load recipes
-    private fun loadRecipes() {
+    private fun loadRecipes(ingredients: String) {
+        Log.d("load recipes", ingredients)
+
         //Define the Retrofit request
         val requestInterface = Retrofit.Builder()
 
@@ -84,7 +86,7 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
 
         //Add all RxJava disposables to a CompositeDisposable
         //Pass in the user query from the search bar
-        recipeCompositeDisposable?.add(requestInterface.getRecipesByIngredients()
+        recipeCompositeDisposable?.add(requestInterface.getRecipesByIngredients(ingredients)
 
             //Send the Observable’s notifications to the main UI thread
             .observeOn(AndroidSchedulers.mainThread())

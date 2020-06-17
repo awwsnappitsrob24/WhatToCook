@@ -7,7 +7,5 @@ import retrofit2.http.Query
 
 interface SpoonacularAPI {
     @GET("apiKey=your-api-key-here")
-    //fun getRecipesByIngredients(@Query("ingredients") ingredients: String) : Observable<List<Recipe>>
-
-    fun getRecipesByIngredients() : Observable<List<Recipe>>
+    fun getRecipesByIngredients(@Query("ingredients") ingredients: String?) : Observable<List<Recipe>>
 }
