@@ -56,7 +56,6 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
 
     // Initialize the RecyclerView//
     private fun initRecyclerView() {
-
         // Use a layout manager to position your items to look like a standard ListView
         val layoutManager : RecyclerView.LayoutManager = LinearLayoutManager(this)
         recipe_list.layoutManager = layoutManager
