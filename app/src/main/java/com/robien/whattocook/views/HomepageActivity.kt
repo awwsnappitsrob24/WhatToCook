@@ -63,6 +63,8 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
 
     //Implement load recipes
     private fun loadRecipes(ingredients: String) {
+        Log.d("load recipes", ingredients)
+
         //Define the Retrofit request
         val requestInterface = Retrofit.Builder()
 
