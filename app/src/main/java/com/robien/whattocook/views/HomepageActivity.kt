@@ -38,7 +38,6 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
 
             override fun onQueryTextSubmit(query: String): Boolean {
                 //Set the value in the search view to the query string
-                Log.d("query", query)
                 ingredientsQuery = query
                 recipeCompositeDisposable = CompositeDisposable()
                 initRecyclerView()
