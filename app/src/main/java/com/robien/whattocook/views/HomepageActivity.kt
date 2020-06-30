@@ -96,16 +96,17 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
 
     private fun handleResponse(recipeList: List<Recipe>) {
         recipeArrayList = ArrayList(recipeList)
-        recipeAdapter = RecipeAdapter(recipeArrayList!!, this)
+        recipeAdapter = RecipeAdapter(this, recipeArrayList!!, this)
 
         //Set the adapter
         recipe_list.adapter = recipeAdapter
     }
 
+
     override fun onItemClick(recipe: Recipe) {
 
         //If the user clicks on an item, then display a Toast
-        Toast.makeText(this, "You clicked: ${recipe.title}", Toast.LENGTH_LONG).show()
+        Toast.makeText(this, "You clicked: ${recipe.id}", Toast.LENGTH_LONG).show()
 
     }
 
@@ -116,4 +117,8 @@ class HomepageActivity : AppCompatActivity(), RecipeAdapter.Listener {
         recipeCompositeDisposable?.clear()
 
     }
+
+    /*
+    To do: Send the whole recipe object (title, image and id) to ViewRecipe activity
+     */
 }
