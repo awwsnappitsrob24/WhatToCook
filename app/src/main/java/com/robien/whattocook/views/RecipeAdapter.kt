@@ -73,15 +73,9 @@ class RecipeAdapter (private val context: Context, private val recipeList : Arra
             }
 
             itemView.viewRecipeButton.setOnClickListener {
-                // view recipe
-                //Log.d("clicked view", "View")
-                /*
-                startActivity(
-                    myContext, Intent(myContext, RecipeInstructions::class.java)
-                    .putExtra("recipe", recipe.title))
-                ) */
                 val intent = Intent(myContext, RecipeInstructions::class.java)
-                intent.putExtra("recipe title", recipe.title) //you can name the keys whatever you like
+                intent.putExtra("recipe title", recipe.title)
+                intent.putExtra("recipe image", recipe.image)
                 startActivity(myContext, intent, null)
             }
         }
